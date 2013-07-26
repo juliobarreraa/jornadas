@@ -41,6 +41,6 @@ CREATE TABLE `#__jornada_teams` (
    PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
  
-INSERT INTO `#__teams` (`jornada_id`, `team_first_id`, `team_second_id`, `team_first_score`, `team_second_score`, `created_at`) VALUES
+INSERT INTO `#__jornada_teams` (`jornada_id`, `team_first_id`, `team_second_id`, `team_first_score`, `team_second_score`, `created_at`) VALUES
         (1, 1, 2, 4, 5, UNIX_TIMESTAMP(now()));
 

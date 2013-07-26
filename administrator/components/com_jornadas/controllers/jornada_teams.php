@@ -50,7 +50,7 @@ class JornadasControllerJornada_teams extends JControllerForm
 	public function save($key = null, $urlVar = null)
 	{
 		// Check for request forgeries.
-		/*JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
 		$app = JFactory::getApplication();
@@ -145,7 +145,7 @@ class JornadasControllerJornada_teams extends JControllerForm
 			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $key), false));
 
 			return false;
-		}*/
+		}
 
 		$this->setMessage(
 			JText::_(
