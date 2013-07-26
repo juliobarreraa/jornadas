@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+	<name>Jornadas</name>
+	<author>Julio César Barrera Andrade</author>
+	<creationDate>2013</creationDate>
+	<copyright>2013</copyright>
+	<license></license>
+	<authorEmail>contacto@juliobarrera.info</authorEmail>
+	<authorUrl>http://www.codebit.com.mx</authorUrl>
+	<version>2.5.0</version>
+	<description>COM_JORNADAS_XML_DESCRIPTION</description>
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/install.mysql.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/uninstall.mysql.sql</file>
+		</sql>
+	</uninstall>
+	<languages folder="admin">
+		<language tag="en-GB">language/en-GB.com_jornadas.ini</language>
+	</languages>
+	<administration>
+		<files folder="admin">
+			<filename>jornadas.php</filename>
+			<filename>jornadas.xml</filename>
+			<folder>controllers</folder>
+			<folder>views</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+		</files>
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_jornadas.ini</language>
+		</languages>
+	</administration>
+</extension>
