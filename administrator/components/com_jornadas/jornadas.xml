@@ -32,6 +32,7 @@
 			<folder>helpers</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
+			<folder>tables</folder>
 		</files>
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB/en-GB.com_jornadas.ini</language>

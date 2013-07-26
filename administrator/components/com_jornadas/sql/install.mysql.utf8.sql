@@ -11,3 +11,17 @@ CREATE TABLE `#__jornadas` (
 INSERT INTO `#__jornadas` (`name`, `created_at`) VALUES
         ('Futbol Mexicano', UNIX_TIMESTAMP(now())),
         ('Futbol Español', UNIX_TIMESTAMP(now()));
+
+DROP TABLE IF EXISTS `#__teams`;
+
+CREATE TABLE `#__teams` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `updated_at` int(10) DEFAULT NULL,
+  `created_at` int(10) NOT NULL,
+   PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ 
+INSERT INTO `#__teams` (`name`, `created_at`) VALUES
+        ('Cruz Azul', UNIX_TIMESTAMP(now())),
+        ('Chivas', UNIX_TIMESTAMP(now()));
