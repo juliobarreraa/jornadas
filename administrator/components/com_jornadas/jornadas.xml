@@ -37,5 +37,16 @@
 			<language tag="en-GB">en-GB/en-GB.com_jornadas.ini</language>
 		</languages>
 		<menu img="class:weblinks" link="option=com_jornadas">COM_JORNADAS</menu>
+		<submenu>
+			<!--
+				Note that all & must be escaped to &amp; for the file to be valid
+				XML and be parsed by the installer
+			-->
+			<menu link="option=com_jornadas" view="jornadas" img="class:jornadas"
+				alt="Jornadas/Jornadas">com_jornadas_jornadas</menu>
+			<menu link="option=com_jornadas&amp;view=teams" view="teams" img="class:teams"
+				alt="Teams/Teams">com_jornadas_teams</menu>
+			<menu link="option=com_jornadas&amp;view=jornadas_teams" view="jornadas_teams" img="class:teams-jorn" alt="Jornadas/Teams">com_jornadas_jornadas_teams</menu>
+		</submenu>
 	</administration>
 </extension>
