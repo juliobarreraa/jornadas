@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="jornada_id" type="text"
+			class="inputbox"
+			description="COM_LANGUAGES_FIELD_TITLE_DESC"
+			label="COM_JORNADAS_FORMS_NAME"
+			maxlength="50"
+			required="true"
+			size="40"
+		/>
+		<field name="team_first_id" type="combo"
+			class="inputfile"
+			description="COM_LANGUAGES_FIELD_FILE_DESC"
+			label="COM_JORNADAS_FORMS_TEAMS_FILE"
+			maxlength="50"
+			required="true"
+			size="40"
+		/>
+		<field name="team_second_id" type="combo"
+			class="inputfile"
+			description="COM_LANGUAGES_FIELD_FILE_DESC"
+			label="COM_JORNADAS_FORMS_TEAMS_FILE"
+			maxlength="50"
+			required="true"
+			size="40"
+		/>
+		<field name="team_first_score" type="text"
+			class="inputfile"
+			description="COM_LANGUAGES_FIELD_FILE_DESC"
+			label="COM_JORNADAS_FORMS_TEAMS_FILE"
+			maxlength="50"
+			required="true"
+			size="40"
+		/>
+		<field name="team_second_score" type="text"
+			class="inputfile"
+			description="COM_LANGUAGES_FIELD_FILE_DESC"
+			label="COM_JORNADAS_FORMS_TEAMS_FILE"
+			maxlength="50"
+			required="true"
+			size="40"
+		/>
+	</fieldset>
+</form>

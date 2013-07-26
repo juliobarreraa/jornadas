@@ -47,7 +47,7 @@
 				alt="Jornadas/Jornadas">com_jornadas_jornadas</menu>
 			<menu link="option=com_jornadas&amp;view=teams" view="teams" img="class:teams"
 				alt="Teams/Teams">com_jornadas_teams</menu>
-			<menu link="option=com_jornadas&amp;view=jornadas_teams" view="jornadas_teams" img="class:teams-jorn" alt="Jornadas/Teams">com_jornadas_jornadas_teams</menu>
+			<menu link="option=com_jornadas&amp;view=jornada_teams" view="jornada_teams" img="class:teams-jorn" alt="Jornadas/Teams">com_jornadas_jornadas_teams</menu>
 		</submenu>
 	</administration>
 </extension>
