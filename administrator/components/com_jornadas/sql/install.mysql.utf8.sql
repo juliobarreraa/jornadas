@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS `#__teams`;
 CREATE TABLE `#__teams` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
+  `image` varchar(100) NOT NULL,
   `updated_at` int(10) DEFAULT NULL,
   `created_at` int(10) NOT NULL,
    PRIMARY KEY  (`id`)

@@ -96,7 +96,7 @@ class JornadasControllerTeams extends JControllerForm
 		// Sometimes the form needs some posted data, such as for plugins and modules.
 		$form = $model->getForm($data, false);
 
-		/*if (!$form)
+		if (!$form)
 		{
 			$app->enqueueMessage($model->getError(), 'error');
 
@@ -145,7 +145,7 @@ class JornadasControllerTeams extends JControllerForm
 			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $key), false));
 
 			return false;
-		}*/
+		}
 
 		$this->setMessage(
 			JText::_(
@@ -153,7 +153,7 @@ class JornadasControllerTeams extends JControllerForm
 				? $this->text_prefix : 'JLIB_APPLICATION') . ($recordId == 0 && $app->isSite() ? '_SUBMIT' : '') . '_SAVE_SUCCESS'
 			)
 		);
-		$this->setRedirect('index.php?option=com_jornadas&view=teams');
+		$this->setRedirect('index.php?option=com_jornadas&view=jornadas');
 
 		return true;
 	}

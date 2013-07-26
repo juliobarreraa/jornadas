@@ -55,7 +55,7 @@ class JornadasModelTeams extends JModelAdmin
 	 *
 	 * @since   2.5
 	 */
-	public function getTable($type = 'Teams', $prefix = 'TeamsTable', $config = array())
+	public function getTable($type = 'Teams', $prefix = 'JornadasTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}

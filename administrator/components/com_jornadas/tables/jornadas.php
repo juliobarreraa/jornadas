@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
  * Filter table class for the Finder package.
  *
  * @package     Joomla.Administrator
- * @subpackage  com_finder
+ * @subpackage  com_jornadas
  * @since       2.5
  */
 class JornadasTableJornadas extends JTable
