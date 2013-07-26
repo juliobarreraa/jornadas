@@ -2,8 +2,8 @@
 <extension
 	type="module"
 	version="2.5"
-	client="administrator">
-	<name>mod_jornadas</name>
+	client="site">
+	<name>Jornadas</name>
 	<author>Julio César Barrera Andrade</author>
 	<creationDate>July 2013</creationDate>
 	<copyright>Copyright (C) 2013 - 2018. All rights reserved.</copyright>
