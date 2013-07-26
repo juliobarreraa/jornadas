@@ -12,6 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 // import joomla controller library
 jimport('joomla.application.component.controller');
  
+include_once JPATH_COMPONENT . '/helpers/jornadas.php';
 // Get an instance of the controller prefixed by HelloWorld
 $controller = JController::getInstance('Jornadas');
  

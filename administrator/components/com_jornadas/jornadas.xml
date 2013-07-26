@@ -9,14 +9,15 @@
 	<authorUrl>http://www.codebit.com.mx</authorUrl>
 	<version>2.5.0</version>
 	<description>COM_JORNADAS_XML_DESCRIPTION</description>
+	<menu img="class:weblinks" link="option=com_jornadas">COM_JORNADAS</menu>
 	<install>
 		<sql>
-			<file charset="utf8" driver="mysql">sql/install.mysql.sql</file>
+			<file charset="utf8" driver="mysql">sql/install.mysql.utf8.sql</file>
 		</sql>
 	</install>
 	<uninstall>
 		<sql>
-			<file charset="utf8" driver="mysql">sql/uninstall.mysql.sql</file>
+			<file charset="utf8" driver="mysql">sql/uninstall.mysql.utf8.sql</file>
 		</sql>
 	</uninstall>
 	<languages folder="admin">
@@ -35,5 +36,6 @@
 		<languages folder="admin/language">
 			<language tag="en-GB">en-GB/en-GB.com_jornadas.ini</language>
 		</languages>
+		<menu img="class:weblinks" link="option=com_jornadas">COM_JORNADAS</menu>
 	</administration>
 </extension>

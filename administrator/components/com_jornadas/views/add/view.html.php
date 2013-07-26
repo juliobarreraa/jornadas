@@ -8,7 +8,7 @@ jimport('joomla.application.component.view');
 /**
  * HTML View class for the HelloWorld Component
  */
-class JornadasViewJornadas extends JView
+class JornadasViewAdd extends JView
 {
     // Overwriting JView display method
     function display($tpl = null) 
@@ -35,12 +35,18 @@ class JornadasViewJornadas extends JView
 
 		$canDo	= JornadasHelper::getActions();
 
-		JToolBarHelper::title(JText::_('COM_JORNADAS_INDEX_TOOLBAR_TITLE'), 'weblinks');
+		JToolBarHelper::title(JText::_('COM_JORNADAS_ADD_TOOLBAR_TITLE'), 'weblinks');
 		$toolbar = JToolBar::getInstance('toolbar');
 
-		$toolbar->appendButton('Link', 'new', 'COM_JORNADAS_ADD', 'index.php?option=com_jornadas&view=add', 550, 500);
+		$toolbar->appendButton('Link', 'archive', 'COM_JORNADAS_INDEX', 'index.php?option=com_jornadas&view=jornadas', 500, 210);
+
 		JToolBarHelper::divider();
 
+		if ($canDo->get('core.create'))
+		{
+			JToolBarHelper::Save('add.save');
+			JToolBarHelper::divider();
+		}
 		if ($canDo->get('core.edit.state'))
 		{
 			JToolBarHelper::publishList('index.publish');
