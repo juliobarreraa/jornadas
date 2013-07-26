@@ -16,6 +16,9 @@ class JornadasViewJornadas extends JView
             // Assign data to the view
             $this->msg = $this->get('msg');
 
+    		// Initialise variables
+    		$this->state		= $this->get('State');
+    		
             // Configure the toolbar.
 			$this->addToolbar();
             // Display the view

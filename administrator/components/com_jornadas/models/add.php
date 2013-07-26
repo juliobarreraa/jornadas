@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
+jimport('joomla.application.component.modeladmin');
 
 /**
  * Index model class for Finder.
@@ -18,7 +18,7 @@ jimport('joomla.application.component.modellist');
  * @subpackage  com_finder
  * @since       2.5
  */
-class JornadasModelAdd extends JModelList
+class JornadasModelAdd extends JModelAdmin
 {
 	/**
 	 * Constructor.
@@ -58,5 +58,26 @@ class JornadasModelAdd extends JModelList
 	public function getTable($type = 'Jornadas', $prefix = 'JornadasTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
+	}
+
+
+	/**
+	 * Method to get the group form.
+	 *
+	 * @param	array	$data		Data for the form.
+	 * @param	boolean	$loadData	True if the form is to load its own data (default case), false if not.
+	 *
+	 * @return	mixed	A JForm object on success, false on failure
+	 * @since	1.6
+	 */
+	public function getForm($data = array(), $loadData = true)
+	{
+		// Get the form.
+		$form = $this->loadForm('com_jornadas.jornadas', 'jornadas', array('control' => 'jform', 'load_data' => $loadData));
+		if (empty($form)) {
+			return false;
+		}
+
+		return $form;
 	}
 }

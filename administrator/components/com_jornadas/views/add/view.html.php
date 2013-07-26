@@ -1,4 +1,5 @@
 <?php
+
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
  
@@ -10,12 +11,18 @@ jimport('joomla.application.component.view');
  */
 class JornadasViewAdd extends JView
 {
+	public $form;
     // Overwriting JView display method
     function display($tpl = null) 
     {
+
+    		// Initialise variables
+    		$this->state		= $this->get('State');
+    		$this->form		= $this->get('Form');
             // Assign data to the view
             $this->msg = $this->get('msg');
 
+            JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
             // Configure the toolbar.
 			$this->addToolbar();
             // Display the view

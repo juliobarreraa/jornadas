@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controlleradmin');
+jimport('joomla.application.component.controllerform');
 
 /**
  * Index controller class for Finder.
@@ -18,7 +18,7 @@ jimport('joomla.application.component.controlleradmin');
  * @subpackage  com_finder
  * @since       2.5
  */
-class JornadasControllerAdd extends JControllerAdmin
+class JornadasControllerAdd extends JControllerForm
 {
 	/**
 	 * Method to get a model object, loading it if required.
@@ -78,6 +78,82 @@ class JornadasControllerAdd extends JControllerAdmin
 
 		$session = JFactory::getSession();
 		$registry = $session->get('registry');
+
+		// Populate the row id from the session.
+		$data[$key] = $recordId;
+
+		// Access check.
+		if (!$this->allowSave($data, $key))
+		{
+			$this->setError(JText::_('JLIB_APPLICATION_ERROR_SAVE_NOT_PERMITTED'));
+			$this->setMessage($this->getError(), 'error');
+			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+
+			return false;
+		}
+
+		// Validate the posted data.
+		// Sometimes the form needs some posted data, such as for plugins and modules.
+		$form = $model->getForm($data, false);
+
+		if (!$form)
+		{
+			$app->enqueueMessage($model->getError(), 'error');
+
+			return false;
+		}
+
+		// Test whether the data is valid.
+		$validData = $model->validate($form, $data);
+
+		// Check for validation errors.
+		if ($validData === false)
+		{
+			// Get the validation messages.
+			$errors = $model->getErrors();
+
+			// Push up to three validation messages out to the user.
+			for ($i = 0, $n = count($errors); $i < $n && $i < 3; $i++)
+			{
+				if (($errors[$i]) instanceof Exception)
+				{
+					$app->enqueueMessage($errors[$i]->getMessage(), 'warning');
+				}
+				else
+				{
+					$app->enqueueMessage($errors[$i], 'warning');
+				}
+			}
+			// Save the data in the session.
+			$app->setUserState($context . '.data', $data);
+
+			// Redirect back to the edit screen.
+			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $key), false));
+
+			return false;
+		}
+
+		// Attempt to save the data.
+		if (!$model->save($validData))
+		{
+			// Save the data in the session.
+			$app->setUserState($context . '.data', $validData);
+
+			// Redirect back to the edit screen.
+			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
+			$this->setMessage($this->getError(), 'error');
+			$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($recordId, $key), false));
+
+			return false;
+		}
+
+		$this->setMessage(
+			JText::_(
+				($lang->hasKey($this->text_prefix . ($recordId == 0 && $app->isSite() ? '_SUBMIT' : '') . '_SAVE_SUCCESS')
+				? $this->text_prefix : 'JLIB_APPLICATION') . ($recordId == 0 && $app->isSite() ? '_SUBMIT' : '') . '_SAVE_SUCCESS'
+			)
+		);
+		$this->setRedirect('index.php?option=com_jornadas&view=jornadas');
 
 		return true;
 	}
