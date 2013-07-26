@@ -9,5 +9,13 @@
 			required="true"
 			size="40"
 		/>
+		<field name="image" type="file"
+			class="inputfile"
+			description="COM_LANGUAGES_FIELD_FILE_DESC"
+			label="COM_JORNADAS_FORMS_TEAMS_FILE"
+			maxlength="50"
+			required="true"
+			size="40"
+		/>
 	</fieldset>
 </form>

@@ -31,7 +31,7 @@ class JornadasControllerTeams extends JControllerForm
 	 *
 	 * @since   2.5
 	 */
-	public function getModel($name = 'Teams', $prefix = 'TeamsModel', $config = array('ignore_request' => true))
+	public function getModel($name = 'Teams', $prefix = 'JornadasModel', $config = array('ignore_request' => true))
 	{
 		$model = parent::getModel($name, $prefix, $config);
 		return $model;
@@ -50,7 +50,7 @@ class JornadasControllerTeams extends JControllerForm
 	public function save($key = null, $urlVar = null)
 	{
 		// Check for request forgeries.
-		/*JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		// Initialise variables.
 		$app = JFactory::getApplication();
@@ -96,7 +96,7 @@ class JornadasControllerTeams extends JControllerForm
 		// Sometimes the form needs some posted data, such as for plugins and modules.
 		$form = $model->getForm($data, false);
 
-		if (!$form)
+		/*if (!$form)
 		{
 			$app->enqueueMessage($model->getError(), 'error');
 

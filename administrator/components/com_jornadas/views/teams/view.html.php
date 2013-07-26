@@ -15,11 +15,8 @@ class JornadasViewTeams extends JView
     // Overwriting JView display method
     function display($tpl = null) 
     {
-
     		// Initialise variables
-    		$this->state		= $this->get('State');
     		$this->form		= $this->get('Form');
-
             JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
             // Configure the toolbar.
 			$this->addToolbar();
@@ -47,7 +44,7 @@ class JornadasViewTeams extends JView
 
 		if ($canDo->get('core.create'))
 		{
-			JToolBarHelper::Save('add.save');
+			JToolBarHelper::Save('teams.save');
 			JToolBarHelper::divider();
 		}
 		if ($canDo->get('core.edit.state'))
