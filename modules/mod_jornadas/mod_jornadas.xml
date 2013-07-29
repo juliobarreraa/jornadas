@@ -27,13 +27,15 @@
 		<fields name="params">
 			<fieldset name="basic">
 				<field
-					name="header_text"
-					type="textarea"
-					filter="safehtml"
-					rows="3"
-					cols="40"
-					label="MOD_LANGUAGES_FIELD_HEADER_LABEL"
-					description="MOD_LANGUAGES_FIELD_HEADER_DESC" />
+					name="jornadas"
+					size="4"
+					type="sql"
+					multiple="true"
+					query="select j.id, j.name from #__jornadas as j order by j.name ASC"
+					label="MOD_JORNADAS_FIELD_JORNADA_ID"
+					description="MOD_JORNADAS_FIELD_JORNADA_ID_DESC"
+					key_field="id" value_field="name" />
+					<option value="">JOPTION_SELECT_JORNADA</option>
 			</fieldset>
 		</fields>
 	</config>
