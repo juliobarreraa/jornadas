@@ -13,13 +13,14 @@
 	<description>MOD_JORNADAS_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_jornadas">mod_jornadas.php</filename>
-		<folder>tmpl</folder>
 		<filename>helper.php</filename>
 		<filename>index.html</filename>
 		<filename>mod_jornadas.xml</filename>
+		<folder>jornadas</folder>
+		<folder>tmpl</folder>
 	</files>
 	<languages>
-		<language tag="en-GB">en-GB.mod_joranadas.ini</language>
+		<language tag="en-GB">en-GB.mod_jornadas.ini</language>
 		<language tag="en-GB">en-GB.mod_jornadas.sys.ini</language>
 	</languages>
 	<help key="JHELP_EXTENSIONS_MODULE_MANAGER_LANGUAGE_SWITCHER" />

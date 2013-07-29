@@ -32,7 +32,7 @@ $document->addScriptDeclaration('jQuery(function($) {
 	</ul>
 
 	<?php foreach($jornadas as $key => $value): ?>
-	<div id="tabs-<?php echo $key ?>">
+	<div id="tabs-<?php echo $key ?>" class="jornada-scores">
 		<ul>
 		<?php foreach($value->getTeamsScore() as $teamscore): ?>
 			<li><?php echo $teamscore->getFteam()->getName(); ?> - <?php echo $teamscore->getFscore(); ?> | <?php echo $teamscore->getSscore(); ?> - <?php echo $teamscore->getSteam()->getName(); ?></li>
