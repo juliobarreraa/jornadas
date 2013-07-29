@@ -21,10 +21,10 @@
 /libraries/
 /logs/
 /media/
-/modules/
 /plugins/
 /robots.txt.dist
 /templates/
+/modules/*
 /tmp/
 /web.config.txt
 /administrator/*
@@ -34,4 +34,4 @@
 /administrator/*
 !/administrator/modules/
 /administrator/modules/*
-!/administrator/modules/mod_jornadas/
+!/modules/mod_jornadas/

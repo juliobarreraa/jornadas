@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="2.5"
+	client="site"
+	method="upgrade">
+	<name>Jornadas</name>
+	<author>Julio César Barrera Andrade</author>
+	<creationDate>July 2013</creationDate>
+	<authorEmail>contacto@juliobarrera.info</authorEmail>
+	<authorUrl>www.codebit.com.mx</authorUrl>
+	<version>2.5.0</version>
+	<description>MOD_JORNADAS_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_jornadas">mod_jornadas.php</filename>
+		<folder>tmpl</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<filename>mod_jornadas.xml</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_joranadas.ini</language>
+		<language tag="en-GB">en-GB.mod_jornadas.sys.ini</language>
+	</languages>
+	<help key="JHELP_EXTENSIONS_MODULE_MANAGER_LANGUAGE_SWITCHER" />
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="header_text"
+					type="textarea"
+					filter="safehtml"
+					rows="3"
+					cols="40"
+					label="MOD_LANGUAGES_FIELD_HEADER_LABEL"
+					description="MOD_LANGUAGES_FIELD_HEADER_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
