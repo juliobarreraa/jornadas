@@ -20,7 +20,6 @@
 /joomla.xml
 /libraries/
 /logs/
-/media/
 /plugins/
 /robots.txt.dist
 /templates/
@@ -35,3 +34,5 @@
 !/administrator/modules/
 /administrator/modules/*
 !/modules/mod_jornadas/
+/media/*
+!/media/mod_jornadas/

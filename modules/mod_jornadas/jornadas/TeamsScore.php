@@ -37,8 +37,32 @@ class TeamsScore implements iTeamsScore {
 	 * Devuelve información sobre el equipo
 	 * @return TeamsScore
 	 */
-	function get() {
-		
+	function getFteam() {
+		return $this->fteam;
+	}
+
+	/**
+	 * Devuelve información sobre el segundo equipo
+	 * @return TeamsScore
+	 */
+	function getSteam() {
+		return $this->steam;
+	}
+
+	/**
+	 * Devuelve primer score
+	 * @return integer
+	 */
+	function getFscore() {
+		return $this->fscore;
+	}
+
+	/**
+	 * Devuelve segundo score
+	 * @return integer
+	 */
+	function getSscore() {
+		return $this->sscore;
 	}
 }
 ?>

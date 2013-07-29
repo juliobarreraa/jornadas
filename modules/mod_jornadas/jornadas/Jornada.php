@@ -70,7 +70,7 @@ class Jornada implements iJornada {
 		$this->name = $jornada[0]->name;
 
 		//Colección de equipos
-		$teams = $this->jornadasDB->getJornadaTeams(null, $this->id);
+		$teams = $this->jornadasDB->getJornadaTeams($this->id);
 		//Resultados?
 		if($teams && count($teams)) {
 			/** array $teams as integer $key => string $value */

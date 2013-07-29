@@ -7,10 +7,29 @@ interface iTeamsScore {
 	 */
 	function __construct(array $team, $score);
 
+
 	/**
 	 * Devuelve información sobre el equipo
 	 * @return TeamsScore
 	 */
-	function get();
+	function getFteam();
+
+	/**
+	 * Devuelve información sobre el segundo equipo
+	 * @return TeamsScore
+	 */
+	function getSteam();
+
+	/**
+	 * Devuelve primer score
+	 * @return integer
+	 */
+	function getFscore();
+
+	/**
+	 * Devuelve segundo score
+	 * @return integer
+	 */
+	function getSscore();
 }
 ?>
