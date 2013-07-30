@@ -20,6 +20,7 @@ class JornadasViewTeams extends JView
             JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
             // Configure the toolbar.
 			$this->addToolbar();
+
             // Display the view
             parent::display($tpl);
     }

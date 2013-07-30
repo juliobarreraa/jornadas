@@ -49,9 +49,6 @@ class JornadasControllerTeams extends JControllerForm
 	 */
 	public function save($key = null, $urlVar = null)
 	{
-		// Check for request forgeries.
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
-
 		// Initialise variables.
 		$app = JFactory::getApplication();
 		$input = $app->input;
@@ -61,6 +58,115 @@ class JornadasControllerTeams extends JControllerForm
 		$data = $input->post->get('jform', array(), 'array');
 		$context = "$this->option.create.$this->context";
 		$task = $this->getTask();
+
+		// Check for request forgeries.
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+	    //import joomlas filesystem functions, we will do all the filewriting with joomlas functions,
+	    //so if the ftp layer is on, joomla will write with that, not the apache user, which might
+	    //not have the correct permissions
+	    jimport('joomla.filesystem.file');
+	    jimport('joomla.filesystem.folder');
+	     
+	    //this is the name of the field in the html form, filedata is the default name for swfupload
+	    //so we will leave it as that
+	    $fieldName = 'jform';
+	     
+	    //any errors the server registered on uploading
+	    $fileError = $_FILES["jform"]['error'];
+
+	    if ($fileError > 0) 
+	    {
+	            switch ($fileError) 
+	            {
+	            case 1:
+	            $app->enqueueMessage('Archivo más grande de lo que php.ini permite', 'error');
+	            $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+	     
+	            case 2:
+	            $app->enqueueMessage('Archivo más grande de lo permitido', 'error');
+	            $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+	     
+	            case 3:
+	            $app->enqueueMessage('Error al subir', 'error');
+	            $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+	     
+	            case 4:
+	            $app->enqueueMessage('Sin archivo', 'error');
+	            $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+	            }
+	    }
+
+	    //check for filesize
+	    $fileSize = $_FILES[$fieldName]['size'];
+
+	    if((int)$fileSize > 2000000)
+	    {
+	            $app->enqueueMessage('El archivo tiene un peso superior a 2M', 'error');
+	            $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+	    }
+	     
+	    //check the file extension is ok
+	    $fileName = $_FILES[$fieldName]['name']['image'];
+
+	    $uploadedFileNameParts = explode('.', $fileName);
+	    $uploadedFileExtension = array_pop($uploadedFileNameParts);
+
+	     
+	    $validFileExts = explode(',', 'jpeg,jpg,png,gif');
+	     
+	    //assume the extension is false until we know its ok
+	    $extOk = false;
+	    //go through every ok extension, if the ok extension matches the file extension (case insensitive)
+	    //then the file extension is ok
+	    foreach($validFileExts as $key => $value)
+	    {
+	            if( preg_match("/$value/i", $uploadedFileExtension ) )
+	            {
+	                    $extOk = true;
+	            }
+	    }
+	     
+	    if ($extOk == false) 
+	    {
+	            $app->enqueueMessage('Invalid extension', 'error');
+	            $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+	    }
+	    //the name of the file in PHP's temp directory that we are going to move to our folder
+	    $fileTemp = $_FILES[$fieldName]['tmp_name'];
+	     
+	    //for security purposes, we will also do a getimagesize on the temp file (before we have moved it 
+	    //to the folder) to check the MIME type of the file, and whether it has a width and height
+	    $imageinfo = getimagesize($fileTemp['image']);
+
+	     
+	    //we are going to define what file extensions/MIMEs are ok, and only let these ones in (whitelisting), rather than try to scan for bad
+	    //types, where we might miss one (whitelisting is always better than blacklisting) 
+	    $okMIMETypes = 'image/jpeg,image/pjpeg,image/png,image/x-png,image/gif';
+	    $validFileTypes = explode(",", $okMIMETypes);           
+	     
+	    //if the temp file does not have a width or a height, or it has a non ok MIME, return
+	    if( !is_int($imageinfo[0]) || !is_int($imageinfo[1]) ||  !in_array($imageinfo['mime'], $validFileTypes) )
+	    {
+	            $app->enqueueMessage('Invalid file name', 'error');
+	            $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+	    }
+	     
+	    //lose any special characters in the filename
+	    $fileName = preg_replace("/[^A-Za-z0-9]/i", ".", $fileName);
+	     
+	    //always use constants when making file paths, to avoid the possibilty of remote file inclusion
+	    $uploadPath = JPATH_SITE.DS.'images'.DS.'jornadas'.DS.$fileName;
+
+	    if(!JFile::upload($fileTemp['image'], $uploadPath)) 
+	    {
+	            $app->enqueueMessage('Error moving file', 'error');
+	            $this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list . $this->getRedirectToListAppend(), false));
+	    }
+	    
+	    $data['image'] = $fileName;
+
+
 
 		// Determine the name of the primary key for the data.
 		if (empty($key))
