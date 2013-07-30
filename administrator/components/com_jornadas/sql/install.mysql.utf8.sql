@@ -7,8 +7,6 @@ CREATE TABLE `#__jornadas` (
   `created_at` int(10) NOT NULL,
    PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
- 
---INSERT INTO `#__jornadas` (`name`, `created_at`) VALUES ('Futbol Mexicano', UNIX_TIMESTAMP(now())), ('Futbol Español', UNIX_TIMESTAMP(now()));
 
 DROP TABLE IF EXISTS `#__teams`;
 
@@ -20,8 +18,7 @@ CREATE TABLE `#__teams` (
   `created_at` int(10) NOT NULL,
    PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
- 
---INSERT INTO `#__teams` (`name`, `created_at`) VALUES ('Cruz Azul', UNIX_TIMESTAMP(now())),('Chivas', UNIX_TIMESTAMP(now()));
+
 
 DROP TABLE IF EXISTS `#__jornada_teams`;
 
@@ -36,6 +33,5 @@ CREATE TABLE `#__jornada_teams` (
   `created_at` int(10) NOT NULL,
    PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
- 
---INSERT INTO `#__jornada_teams` (`jornada_id`, `team_first_id`, `team_second_id`, `team_first_score`, `team_second_score`, `created_at`) VALUES (1, 1, 2, 4, 5, UNIX_TIMESTAMP(now()));
+
 
