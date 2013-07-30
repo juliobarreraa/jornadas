@@ -25,6 +25,19 @@ class JornadasViewAdd extends JView
             JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
             // Configure the toolbar.
 			$this->addToolbar();
+
+			//get the hosts name
+			jimport('joomla.environment.uri' );
+			$host = JURI::root();
+			 
+			//add the links to the external files into the head of the webpage (note the 'administrator' in the path, which is not nescessary if you are in the frontend)
+			$document =& JFactory::getDocument();
+			$document->addScript($host.'administrator/components/com_jornadas/swfupload/swfupload.js');
+			$document->addScript($host.'administrator/components/com_jornadas/swfupload/swfupload.queue.js');
+			$document->addScript($host.'administrator/components/com_jornadas/swfupload/fileprogress.js');
+			$document->addScript($host.'administrator/components/com_jornadas/swfupload/handlers.js');
+			$document->addStyleSheet($host.'administrator/components/com_jornadas/swfupload/default.css');
+
             // Display the view
             parent::display($tpl);
     }

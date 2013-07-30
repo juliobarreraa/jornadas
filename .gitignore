@@ -14,7 +14,6 @@
 /components/
 /configuration.php
 /htaccess.txt
-/images/
 /includes/
 /index.php
 /joomla.xml
@@ -36,3 +35,12 @@
 !/modules/mod_jornadas/
 /media/*
 !/media/mod_jornadas/
+!/docs/
+!/images/jornadas/
+/images/banners/
+/images/index.html
+/images/joomla_black.gif
+/images/joomla_green.gif
+/images/joomla_logo_black.jpg
+/images/powered_by.png
+/images/sampledata/
