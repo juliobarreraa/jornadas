@@ -31,7 +31,7 @@ $swfUploadHeadJs ='
 				button_width: "65",
 				button_height: "29",
 				button_placeholder_id: "spanButtonPlaceHolder",
-				button_text: "<span class=\"theFont\">Hello</span>",
+				button_text: "<span class=\"theFont\">Subir</span>",
 				button_text_style: ".theFont { font-size: 16; }",
 				button_text_left_padding: 12,
 				button_text_top_padding: 3,
