@@ -1,2 +1,5 @@
-#tabs ul li a {font-size: 9px;}
-.jornada-scores ul li { font-size: 10px;}
+#tabs ul li a{font-size:9px}
+.jornada-scores{padding:0 !important}
+.jornada-scores ul{margin:0 !important}
+.jornada-scores ul li{font-size:10px}
+.jornada-scores span.scores{display:inline-block;line-height:20px;padding:0 10px;font-size:12px;background:#eee}.jornada-scores span.scores .score1{background:#ccc;padding:0 5px}

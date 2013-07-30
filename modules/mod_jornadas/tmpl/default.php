@@ -35,7 +35,7 @@ $document->addScriptDeclaration('jQuery(function($) {
 	<div id="tabs-<?php echo $key ?>" class="jornada-scores">
 		<ul>
 		<?php foreach($value->getTeamsScore() as $teamscore): ?>
-			<li><?php echo $teamscore->getFteam()->getName(); ?> - <?php echo $teamscore->getFscore(); ?> | <?php echo $teamscore->getSscore(); ?> - <?php echo $teamscore->getSteam()->getName(); ?></li>
+			<li><img src="<?php echo JURI::base() . '/images/jornadas/'. $teamscore->getFteam()->getimage() ?>" width="30" height="30"><?php echo $teamscore->getFteam()->getName(); ?> <span class="scores"><span class="score1"><?php echo $teamscore->getFscore(); ?></span><span class="score2"><?php echo $teamscore->getSscore(); ?></span></span><?php echo $teamscore->getSteam()->getName(); ?><img src="<?php echo JURI::base() . '/images/jornadas/'. $teamscore->getSteam()->getimage() ?>" width="30" height="30"></li>
 		<?php endforeach ?>
 		</ul>
 	</div>

@@ -51,7 +51,7 @@ class JornadasDB implements iJornadasDB {
 
 		//Get query
 		$query = $this->db->getQuery(true);
-		$query->select('t.id, t.name')
+		$query->select('t.id, t.name, t.image')
 			  ->from('#__teams t')
 			  ->where($where);
 

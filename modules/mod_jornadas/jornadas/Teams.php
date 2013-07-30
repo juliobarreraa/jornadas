@@ -45,6 +45,14 @@ class Teams implements iTeams {
 	}
 
 	/**
+	 * Devuelve la imagen asignada a un equipo
+	 * @return string
+	 */
+	function getImage() {
+		return $this->image;
+	}
+
+	/**
 	 * Configura el equipo
 	 * @param int $id
 	 */
@@ -53,6 +61,7 @@ class Teams implements iTeams {
 
 		$this->id = $team[0]->id;
 		$this->name = $team[0]->name;
+		$this->image = $team[0]->image;
 	}
 }
 ?>
