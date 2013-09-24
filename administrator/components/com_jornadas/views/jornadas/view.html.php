@@ -8,13 +8,19 @@ jimport('joomla.application.component.view');
 /**
  * HTML View class for the HelloWorld Component
  */
-class JornadasViewJornadas extends JView
+class JornadasViewJornadas extends JViewLegacy
 {
+	protected $items;
+	protected $pagination;
+	protected $state;
+
     // Overwriting JView display method
     function display($tpl = null) 
     {
             // Assign data to the view
             $this->msg = $this->get('msg');
+			$this->items		= $this->get('Items');
+			$this->pagination	= $this->get('Pagination');
 
     		// Initialise variables
     		$this->state		= $this->get('State');
