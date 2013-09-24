@@ -15,9 +15,25 @@ class JornadasModelJornadas extends JModelItem
          */
         protected $msg;
 
-		public function setMsg($message) {
-			$this->msg = $this->getMsg();
-		}
+        /**
+         * Returns a JTable object, always creating it.
+         *
+         * @param   string  $type    The table type to instantiate. [optional]
+         * @param   string  $prefix  A prefix for the table class name. [optional]
+         * @param   array   $config  Configuration array for model. [optional]
+         *
+         * @return  JTable  A database object
+         *
+         * @since   2.5
+         */
+        public function getTable($type = 'Jornadas', $prefix = 'JornadasTable', $config = array())
+        {
+                return JTable::getInstance($type, $prefix, $config);
+        }
+
+	public function setMsg($message) {
+		$this->msg = $this->getMsg();
+	}
  
         /**
          * Get the message
@@ -30,5 +46,25 @@ class JornadasModelJornadas extends JModelItem
                         $this->msg = 'Hello World!';
                 }
                 return $this->msg;
+        }
+
+        /**
+         * Devuelve el listado de jornadas creadas
+         * @return string[]
+         */
+        public function getItems() {
+                $jornadasTable = $this->getTable();
+
+                $db = $this->getDbo();
+
+                $db->setQuery(
+                        'SELECT * from #__jornadas'
+                );
+
+                if (!$db->query()) {
+                        throw new Exception($db->getErrorMsg());
+                }
+
+                return $db->loadObjectList();
         }
 }

@@ -1,74 +1,103 @@
 <?php
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-jimport('joomla.environment.uri' );
-$document =& JFactory::getDocument();
-
-//when we send the files for upload, we have to tell Joomla our session, or we will get logged out 
-$session = & JFactory::getSession();
- 
-$swfUploadHeadJs ='
-		var swfu;
-
-		window.onload = function() {
-			var settings = {
-				flash_url : "'.$host.'components/com_jornadas/swfupload/swfupload.swf",
-				flash9_url : "'.$host.'components/com_jornadas/swfupload/swfupload_fp9.swf",
-				upload_url: "index.php",
-				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>", "option" : "com_jornadas", "view" : "upload", "id": "'.$myItemObject->id.'", "'.$session->getName().'" : "'.$session->getId().'", "format" : "raw"},
-
-				file_size_limit : "100 MB",
-				file_types : "*.*",
-				file_types_description : "All Files",
-				file_upload_limit : 100,
-				file_queue_limit : 0,
-				custom_settings : {
-					progressTarget : "fsUploadProgress",
-					cancelButtonId : "btnCancel"
-				},
-				debug: false,
-
-				// Button settings
-				button_image_url: "'.$host.'components/com_jornadas/swfupload/images/TestImageNoText_65x29.png",
-				button_width: "65",
-				button_height: "29",
-				button_placeholder_id: "spanButtonPlaceHolder",
-				button_text: "<span class=\"theFont\">Subir</span>",
-				button_text_style: ".theFont { font-size: 16; }",
-				button_text_left_padding: 12,
-				button_text_top_padding: 3,
-				
-				// The event handler functions are defined in handlers.js
-				swfupload_preload_handler : preLoad,
-				swfupload_load_failed_handler : loadFailed,
-				file_queued_handler : fileQueued,
-				file_queue_error_handler : fileQueueError,
-				file_dialog_complete_handler : fileDialogComplete,
-				upload_start_handler : uploadStart,
-				upload_progress_handler : uploadProgress,
-				upload_error_handler : uploadError,
-				upload_success_handler : uploadSuccess,
-				upload_complete_handler : uploadComplete,
-				queue_complete_handler : queueComplete	// Queue plugin event
-			};
-
-			swfu = new SWFUpload(settings);
-	     }; 
-';
- 
-//add the javascript to the head of the html document
-$document->addScriptDeclaration($swfUploadHeadJs);
-
+$user		= JFactory::getUser();
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_jornadas&view=teams');?>" method="post" name="adminForm" id="adminForm" enctype="multipart/form-data">
-		<ul class="adminformlist">
-			<li><?php echo $this->form->getLabel('name'); ?>
-				<?php echo $this->form->getInput('name'); ?></li>
-			<li><?php echo $this->form->getLabel('image'); ?>
-				<?php echo $this->form->getInput('image'); ?></li>
-		</ul>
+<form action="<?php echo JRoute::_('index.php?option=com_jornadas&view=teams');?>" method="post" name="adminForm" id="adminForm">
+		<fieldset id="filter-bar">
+			<div class="filter-search fltlft">
+				<label class="filter-search-lbl" for="filter_search"><?php echo JText::sprintf('COM_JORNADAS_SEARCH_LABEL', JText::_('COM_JORNADAS_ITEMS')); ?></label>
+				<input type="text" name="filter_search" id="filter_search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" title="<?php echo JText::_('COM_JORNADAS_FILTER_SEARCH_DESCRIPTION'); ?>" />
+				<button type="submit" class="btn"><?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?></button>
+				<button type="button" onclick="document.id('filter_search').value='';this.form.submit();"><?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?></button>
+			</div>
+		</fieldset>
 
+	<table class="adminlist">
+		<thead>
+			<tr>
+				<th width="1%">
+					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+				</th>
+				<th>
+					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
+				</th>
+				<th width="5%">
+					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
+				</th>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'a.lft', $listDirn, $listOrder); ?>
+					<?php if ($saveOrder) :?>
+						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'categories.saveorder'); ?>
+					<?php endif; ?>
+				</th>
+				<th width="10%">
+					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ACCESS', 'a.title', $listDirn, $listOrder); ?>
+				</th>
+				<th width="1%" class="nowrap">
+					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+				</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="15">
+					<?php //echo $this->pagination->getListFooter(); ?>
+				</td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php
+			$originalOrders = array();
+			foreach ($this->items as $i => $item) :
+				//$orderkey	= array_search($item->id, $this->ordering[$item->parent_id]);
+				$canEdit	= $user->authorise('core.edit',			$extension.'.category.'.$item->id);
+				$canCheckin	= $user->authorise('core.admin', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
+				$canEditOwn	= $user->authorise('core.edit.own',		$extension.'.category.'.$item->id) && $item->created_user_id == $userId;
+				$canChange	= $user->authorise('core.edit.state',	$extension.'.category.'.$item->id) && $canCheckin;
+			?>
+				<tr class="row<?php echo $i % 2; ?>">
+					<td class="center">
+						<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+					</td>
+					<td>
+						<?php if ($item->checked_out) : ?>
+							<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'categories.', $canCheckin); ?>
+						<?php endif; ?>
+						<?php if ($canEdit || $canEditOwn) : ?>
+							<a href="<?php echo JRoute::_('index.php?option=com_jornadas&task=teams.edit&id='.$item->id.'&extension='.$extension);?>">
+								<?php echo $this->escape($item->name); ?></a>
+						<?php else : ?>
+							<?php echo $this->escape($item->name); ?>
+						<?php endif; ?>
+					</td>
+					<td class="center">
+						<?php echo JHtml::_('jgrid.published', $item->published, $i, 'teams.', $canChange);?>
+					</td>
+					<td class="order">
+						<?php if ($canChange) : ?>
+							<?php if ($saveOrder) : ?>
+								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, isset($this->ordering[$item->parent_id][$orderkey + 1]), 'teams.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+							<?php endif; ?>
+							<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
+							<input type="text" name="order[]" size="5" value="<?php echo $orderkey + 1;?>" <?php echo $disabled ?> class="text-area-order" />
+							<?php $originalOrders[] = $orderkey + 1; ?>
+						<?php else : ?>
+							<?php echo $orderkey + 1;?>
+						<?php endif; ?>
+					</td>
+					<td class="center">
+						<?php echo $this->escape($item->access_level); ?>
+					</td>
+					</td>
+					<td class="center">
+						<span title="<?php echo sprintf('%d-%d', $item->lft, $item->rgt);?>">
+							<?php echo (int) $item->id; ?></span>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
 		<input type="hidden" name="task" value="display" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder ?>" />

@@ -1,6 +1,7 @@
 <?php
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+$user		= JFactory::getUser();
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_jornadas&view=jornadas');?>" method="post" name="adminForm" id="adminForm">
 		<fieldset id="filter-bar">
@@ -43,9 +44,6 @@ defined('_JEXEC') or die('Restricted access');
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ACCESS', 'a.title', $listDirn, $listOrder); ?>
 				</th>
-				<th width="5%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'language', $this->state->get('list.direction'), $this->state->get('list.ordering')); ?>
-				</th>
 				<th width="1%" class="nowrap">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
 				</th>
@@ -62,7 +60,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php
 			$originalOrders = array();
 			foreach ($this->items as $i => $item) :
-				$orderkey	= array_search($item->id, $this->ordering[$item->parent_id]);
+				//$orderkey	= array_search($item->id, $this->ordering[$item->parent_id]);
 				$canEdit	= $user->authorise('core.edit',			$extension.'.category.'.$item->id);
 				$canCheckin	= $user->authorise('core.admin', 'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 				$canEditOwn	= $user->authorise('core.edit.own',		$extension.'.category.'.$item->id) && $item->created_user_id == $userId;
@@ -73,31 +71,22 @@ defined('_JEXEC') or die('Restricted access');
 						<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 					</td>
 					<td>
-						<?php echo str_repeat('<span class="gi">|&mdash;</span>', $item->level-1) ?>
 						<?php if ($item->checked_out) : ?>
 							<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'categories.', $canCheckin); ?>
 						<?php endif; ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
-							<a href="<?php echo JRoute::_('index.php?option=com_categories&task=category.edit&id='.$item->id.'&extension='.$extension);?>">
-								<?php echo $this->escape($item->title); ?></a>
+							<a href="<?php echo JRoute::_('index.php?option=com_jornadas&task=add.edit&id='.$item->id.'&extension='.$extension);?>">
+								<?php echo $this->escape($item->name); ?></a>
 						<?php else : ?>
-							<?php echo $this->escape($item->title); ?>
+							<?php echo $this->escape($item->name); ?>
 						<?php endif; ?>
-						<p class="smallsub" title="<?php echo $this->escape($item->path);?>">
-							<?php echo str_repeat('<span class="gtr">|&mdash;</span>', $item->level-1) ?>
-							<?php if (empty($item->note)) : ?>
-								<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
-							<?php else : ?>
-								<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS_NOTE', $this->escape($item->alias), $this->escape($item->note));?>
-							<?php endif; ?></p>
 					</td>
 					<td class="center">
-						<?php echo JHtml::_('jgrid.published', $item->published, $i, 'categories.', $canChange);?>
+						<?php echo JHtml::_('jgrid.published', $item->published, $i, 'jornadas.', $canChange);?>
 					</td>
 					<td class="order">
 						<?php if ($canChange) : ?>
 							<?php if ($saveOrder) : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, isset($this->ordering[$item->parent_id][$orderkey - 1]), 'categories.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
 								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, isset($this->ordering[$item->parent_id][$orderkey + 1]), 'categories.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
 							<?php endif; ?>
 							<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
@@ -110,12 +99,6 @@ defined('_JEXEC') or die('Restricted access');
 					<td class="center">
 						<?php echo $this->escape($item->access_level); ?>
 					</td>
-					<td class="center nowrap">
-					<?php if ($item->language=='*'):?>
-						<?php echo JText::alt('JALL', 'language'); ?>
-					<?php else:?>
-						<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
-					<?php endif;?>
 					</td>
 					<td class="center">
 						<span title="<?php echo sprintf('%d-%d', $item->lft, $item->rgt);?>">

@@ -58,12 +58,12 @@ class JornadasViewJornadas extends JViewLegacy
 		}
 		if ($canDo->get('core.delete'))
 		{
-			JToolBarHelper::deleteList('', 'index.delete');
+			JToolBarHelper::deleteList('', 'add.delete');
 			JToolBarHelper::divider();
 		}
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::trash('index.purge', 'COM_JORNADAS_INDEX_TOOLBAR_PURGE', false);
+			JToolBarHelper::trash('add.purge', 'COM_JORNADAS_INDEX_TOOLBAR_PURGE', false);
 			JToolBarHelper::divider();
 		}
 

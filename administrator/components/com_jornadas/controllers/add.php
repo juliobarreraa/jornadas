@@ -157,4 +157,66 @@ class JornadasControllerAdd extends JControllerForm
 
 		return true;
 	}
+
+	/**
+	 * Borra una jornada
+	 * @return
+	 */
+	public function delete() {
+		// Check for request forgeries.
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+		// Get the model.
+		$model = $this->getModel();
+
+		// Load the filter state.
+		$app = JFactory::getApplication();
+
+		$user	= JFactory::getUser();
+
+		$ids = JRequest::getVar('cid', array(), 'post', 'array');
+
+		$model->setState('list.limit', 0);
+		$model->setState('list.start', 0);
+
+		// Access checks.
+		foreach ($ids as $i => $id)
+		{
+			if (!$user->authorise('core.delete', 'com_jornadas.add.'.(int) $id))
+			{
+				// Prune items that you can't delete.
+				unset($ids[$i]);
+				JError::raiseNotice(403, JText::_('JERROR_CORE_DELETE_NOT_PERMITTED'));
+			} else {
+				// Get the model.
+				$model = $this->getModel();
+
+				// Remove the items.
+				if (!$model->delete($id)) {
+					JError::raiseWarning(500, $model->getError());
+				}
+			}
+		}
+
+		$this->setRedirect('index.php?option=com_jornadas&view=jornadas');
+	}
+
+	public function edit() {
+		// Initialise variables.
+		$app		= JFactory::getApplication();
+		$model		= $this->getModel();
+		$recordId	= JRequest::getVar('id');
+		$context	= 'com_jornadas.edit.add';
+
+		// Access check.
+		if (!$this->allowEdit()) {
+			return JError::raiseWarning(403, JText::_('JLIB_APPLICATION_ERROR_EDIT_NOT_PERMITTED'));
+		}
+
+		// Check-out succeeded, push the new record id into the session.
+		$app->setUserState($context.'.id',	$recordId);
+		$app->setUserState($context.'.data', null);
+		$this->setRedirect('index.php?option=com_jornadas&view=add&layout=edit');
+		return true;
+	}
 }

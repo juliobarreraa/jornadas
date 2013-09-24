@@ -108,7 +108,7 @@ abstract class JHtmlJornadas
 	{
 		$options = array();
 		$options[] = JHtml::_('select.option', '1', JText::sprintf('COM_JORNADAS_ITEM_X_ONLY', JText::_('JPUBLISHED')));
-		$options[] = JHtml::_('select.option', '0', JText::sprintf('COM_JORNADAS_ITEM_X_ONLY', JText::_('JUNPUBLISHED')));
+		$options[] = JHtml::_('select.option', '0', JText::sprintf('COM_JORNADAS_ITEM_Y_ONLY', JText::_('JUNPUBLISHED')));
 
 		return $options;
 	}

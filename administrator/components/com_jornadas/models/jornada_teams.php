@@ -80,4 +80,41 @@ class JornadasModelJornada_teams extends JModelAdmin
 
 		return $form;
 	}
+
+	/**
+	 * Method to delete a node and, optionally, its child nodes from the table.
+	 *
+	 * @param   integer  $pk        The primary key of the node to delete.
+	 * @param   boolean  $children  True to delete child nodes, false to move them up a level.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @see     http://docs.joomla.org/JTableNested/delete
+	 * @since   2.5
+	 */
+	public function delete($pk = null, $children = false)
+	{
+		return parent::delete($pk, $children);
+	}
+
+
+    /**
+     * Devuelve el listado de jornadas creadas
+     * @return string[]
+     */
+    public function getItems() {
+            $teamsTable = $this->getTable();
+
+            $db = $this->getDbo();
+
+            $db->setQuery(
+                    'SELECT * from #__jornada_teams'
+            );
+
+            if (!$db->query()) {
+                    throw new Exception($db->getErrorMsg());
+            }
+
+            return $db->loadObjectList();
+    }
 }

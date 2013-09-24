@@ -18,8 +18,16 @@ class JornadasViewTeams extends JView
     		// Initialise variables
     		$this->form		= $this->get('Form');
             JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
-            // Configure the toolbar.
-			$this->addToolbar();
+		
+            // Assign data to the view
+            $this->msg = $this->get('msg');
+			$this->items		= $this->get('Items');
+			$this->pagination	= $this->get('Pagination');
+
+    		// Initialise variables
+    		$this->state		= $this->get('State');
+
+    		$this->addToolbar();
 
             // Display the view
             parent::display($tpl);
@@ -41,6 +49,8 @@ class JornadasViewTeams extends JView
 		JToolBarHelper::title(JText::_('COM_JORNADAS_TEAMS_TOOLBAR_TITLE'), 'weblinks');
 		$toolbar = JToolBar::getInstance('toolbar');
 
+		$toolbar->appendButton('Link', 'new', 'COM_JORNADAS_ADD', 'index.php?option=com_jornadas&view=teams&layout=add', 550, 500);
+
 		JToolBarHelper::divider();
 
 		if ($canDo->get('core.create'))
@@ -50,13 +60,13 @@ class JornadasViewTeams extends JView
 		}
 		if ($canDo->get('core.edit.state'))
 		{
-			JToolBarHelper::publishList('index.publish');
-			JToolBarHelper::unpublishList('index.unpublish');
+			JToolBarHelper::publishList('teams.publish');
+			JToolBarHelper::unpublishList('teams.unpublish');
 			JToolBarHelper::divider();
 		}
 		if ($canDo->get('core.delete'))
 		{
-			JToolBarHelper::deleteList('', 'index.delete');
+			JToolBarHelper::deleteList('', 'teams.delete');
 			JToolBarHelper::divider();
 		}
 		if ($canDo->get('core.edit.state'))

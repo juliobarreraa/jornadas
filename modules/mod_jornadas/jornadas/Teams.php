@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__FILE__).'/iTeams.php';
+require_once dirname(__FILE__).'/JornadasDB.php';
 
 class Teams implements iTeams {
 	/**
